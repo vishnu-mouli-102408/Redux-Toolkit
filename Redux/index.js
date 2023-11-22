@@ -1,4 +1,5 @@
 const redux = require("redux");
+const bindActionCreaters = redux.bindActionCreators;
 const createStore = redux.createStore;
 
 const BOOK_ORDERED = "BOOK_ORDERED";
@@ -47,9 +48,14 @@ const unsunscribe = store.subscribe(() =>
   console.log("Updated state", store.getState())
 );
 
-store.dispatch(orderBook(3));
-store.dispatch(orderBook(3));
+// store.dispatch(orderBook());
+// store.dispatch(orderBook());
 
-store.dispatch(restockBook(3));
+// store.dispatch(restockBook(3));
+
+const actions = bindActionCreaters({ orderBook, restockBook }, store.dispatch);
+
+actions.orderBook();
+actions.restockBook(3);
 
 unsunscribe();
