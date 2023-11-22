@@ -1,7 +1,10 @@
 const redux = require("redux");
+const reduxLogger = require("redux-logger");
 const bindActionCreaters = redux.bindActionCreators;
 const createStore = redux.createStore;
-const comnineReducers = redux.combineReducers;
+const combineReducers = redux.combineReducers;
+const logger = reduxLogger.createLogger();
+const applyMiddleware = redux.applyMiddleware;
 
 const BOOK_ORDERED = "BOOK_ORDERED";
 const BOOK_RESTOCKED = "BOOK_RESTOCKED";
@@ -84,18 +87,18 @@ const milkReducer = (state = initilMilkState, action) => {
   }
 };
 
-const rootReducer = redux.combineReducers({
+const rootReducer = combineReducers({
   book: bookReducer,
   milk: milkReducer,
 });
 
-const store = createStore(rootReducer);
+const store = createStore(rootReducer, applyMiddleware(logger));
 
 console.log("initial state", store.getState());
 
-const unsunscribe = store.subscribe(() =>
-  console.log("Updated state", store.getState())
-);
+const unsunscribe = store.subscribe(() => {
+  // console.log("Updated state", store.getState())
+});
 
 // store.dispatch(orderBook());
 // store.dispatch(orderBook());
