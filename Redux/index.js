@@ -82,6 +82,11 @@ const milkReducer = (state = initilMilkState, action) => {
         ...state,
         numOfMilkBottles: state.numOfMilkBottles + action.payload,
       };
+    case BOOK_ORDERED:
+      return {
+        ...state,
+        numOfMilkBottles: state.numOfMilkBottles - action.payload,
+      };
     default:
       return state;
   }
