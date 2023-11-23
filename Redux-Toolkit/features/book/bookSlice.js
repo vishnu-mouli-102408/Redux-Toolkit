@@ -1,3 +1,5 @@
+const { milkActions } = require("../milk/milkSlice");
+
 const createSlice = require("@reduxjs/toolkit").createSlice;
 
 const initialState = {
@@ -14,6 +16,16 @@ const bookSlice = createSlice({
     restocked: (state, action) => {
       state.numOfBooks += action.payload;
     },
+  },
+  //   extraReducers: {
+  //     ["milk/ordered"]: (state, action) => {
+  //       state.numOfBooks--;
+  //     },
+  //   },
+  extraReducers: (builder) => {
+    builder.addCase(milkActions.ordered, (state, action) => {
+      state.numOfBooks--;
+    });
   },
 });
 
